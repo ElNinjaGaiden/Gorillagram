@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Feed from '../../components/Feed';
+import Feed from '../../components/feed';
 import { connect } from 'react-redux';
 import {
     View,

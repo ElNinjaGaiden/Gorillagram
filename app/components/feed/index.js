@@ -5,7 +5,7 @@ import {
     View, 
     Text 
 } from 'react-native';
-import FeedImage from './FeedImage';
+import FeedImage from './image/FeedImage';
 import { connect } from 'react-redux';
 
 class Feed extends Component {

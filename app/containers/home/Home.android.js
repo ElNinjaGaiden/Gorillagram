@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import HomeBase from './HomeBase';
+import { connect } from 'react-redux';
 
-export default class Home extends HomeBase {
+class Home extends HomeBase {
 
 }
 

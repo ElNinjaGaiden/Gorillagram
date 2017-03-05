@@ -5,12 +5,12 @@ import {
 	Dimensions,
 	StyleSheet
 } from 'react-native';
-import * as imageUtils from '../utils/images';
-import LikeButton from './buttons/like/LikeButton';
-import CommentButton from './buttons/comment/CommentButton';
-import MoreButton from './buttons/more/MoreButton';
+import * as imageUtils from '../../..//utils/images';
+import LikeButton from '../../buttons/like/LikeButton';
+import CommentButton from '../../buttons/comment/CommentButton';
+import MoreButton from '../../buttons/more/MoreButton';
 
-export default class FeedImage extends Component {
+export default class FeedImageBase extends Component {
 
 	constructor(props) {
 		super(props);
@@ -19,19 +19,24 @@ export default class FeedImage extends Component {
 		};
 	}
 
+	bottomPaddingRight () {
+		return 5;
+	}
+
 	render() {
 		const imageUrl = imageUtils.resolveImageUrl(this.props.image, this.state.imageWidth);
+		const bottomPaddingRight = this.bottomPaddingRight();
 		return (
 			<View style={styles.feedEntry}>
 				<View style={styles.top}>
-					<Image source={require('../resources/img/gorilla-logo.jpg')}
+					<Image source={require('../../../resources/img/gorilla-logo.jpg')}
 						style={styles.logoImage}>
 					</Image>
 				</View>
 				<Image source={{ uri: imageUrl }}
 					style={[styles.image, { width: this.state.imageWidth }]}>
 				</Image>
-				<View style={styles.bottom}>
+				<View style={[styles.bottom, {paddingRight: bottomPaddingRight}]}>
 					<LikeButton style={styles.likeButton}></LikeButton>
 					<CommentButton style={styles.commentButton}></CommentButton>
 					<View style={styles.moreButtonWrapper}>
