@@ -20,7 +20,6 @@ class HomeBase extends Component {
     }
 
     marginTop () {
-        console.log('base');
         return 0;
     }
 
