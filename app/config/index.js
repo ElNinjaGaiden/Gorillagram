@@ -1,0 +1,1 @@
+export const CDNCloudName = 'gorilla-logic-demo';
