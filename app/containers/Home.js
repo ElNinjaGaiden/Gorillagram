@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 class Home extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -55,7 +56,7 @@ class Home extends Component {
         }
     }
 
-    //NOTE: available tags on Cloudinary CDN: gorilla, pets, team, presentation, costarica, jam, boulder
+    //NOTE: current available tags on Cloudinary CDN: gorilla, pets, team, presentation, costarica, jam, boulder
     onTagSearchChange(tag) {
         this.setState({ tag });
     }

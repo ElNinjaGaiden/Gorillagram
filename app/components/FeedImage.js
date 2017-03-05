@@ -5,7 +5,7 @@ import {
 	Dimensions,
 	StyleSheet
 } from 'react-native';
-import * as config from '../config';
+import * as imageUtils from '../utils/images';
 import LikeButton from './buttons/like/LikeButton';
 import CommentButton from './buttons/comment/CommentButton';
 import MoreButton from './buttons/more/MoreButton';
@@ -20,24 +20,22 @@ export default class FeedImage extends Component {
 	}
 
 	render() {
-		const image = `${this.props.image.public_id}.${this.props.image.format}`;
-		const url = `https://res.cloudinary.com/${config.CDNCloudName}/image/upload/c_scale,w_${this.state.imageWidth}/${image}`;
+		const imageUrl = imageUtils.resolveImageUrl(this.props.image, this.state.imageWidth);
 		return (
 			<View style={styles.feedEntry}>
 				<View style={styles.top}>
 					<Image source={require('../resources/img/gorilla-logo.jpg')}
 						style={styles.logoImage}>
-
 					</Image>
 				</View>
-				<Image source={{ uri: url }}
+				<Image source={{ uri: imageUrl }}
 					style={[styles.image, { width: this.state.imageWidth }]}>
 				</Image>
 				<View style={styles.bottom}>
-					<LikeButton style={{ marginLeft: 10 }}></LikeButton>
-					<CommentButton style={{ marginLeft: 10 }}></CommentButton>
+					<LikeButton style={styles.likeButton}></LikeButton>
+					<CommentButton style={styles.commentButton}></CommentButton>
 					<View style={styles.moreButtonWrapper}>
-						<MoreButton style={styles.moreButton}></MoreButton>
+						<MoreButton />
 					</View>
 				</View>
 			</View>
@@ -66,6 +64,12 @@ const styles = StyleSheet.create({
 		height: 50,
 		padding: 5,
 		flexDirection: 'row'
+	},
+	likeButton: {
+		marginLeft: 10
+	},
+	commentButton: {
+		marginLeft: 10
 	},
 	moreButtonWrapper: {
 		flex: 1,
