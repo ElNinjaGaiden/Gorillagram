@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Feed from '../components/Feed';
+import Feed from '../../components/Feed';
 import { connect } from 'react-redux';
 import {
     View,
@@ -9,7 +9,7 @@ import {
     StyleSheet
 } from 'react-native';
 
-class Home extends Component {
+class HomeBase extends Component {
 
     constructor(props) {
         super(props);
@@ -19,8 +19,13 @@ class Home extends Component {
         };
     }
 
+    marginTop () {
+        console.log('base');
+        return 0;
+    }
+
     render() {
-        const marginTop = this.props.isiOS ? 20 : 0;
+        const marginTop = this.marginTop();
         return (
             <View style={{ marginTop: marginTop }}>
                 <View style={styles.searchSection}>
@@ -60,6 +65,12 @@ class Home extends Component {
     onTagSearchChange(tag) {
         this.setState({ tag });
     }
+
+    static mapStateToProps(state) {
+        return {
+            searchedImages: state.searchedImages
+        };
+    } 
 }
 
 const styles = StyleSheet.create({
@@ -98,11 +109,4 @@ const styles = StyleSheet.create({
     }
 });
 
-function mapStateToProps(state) {
-    return {
-        searchedImages: state.searchedImages,
-        isiOS: state.isiOS
-    };
-}
-
-export default connect(mapStateToProps)(Home);
+export default HomeBase;
