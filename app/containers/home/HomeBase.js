@@ -92,11 +92,14 @@ export default class HomeBase extends Component {
     }
 
     onImageDataReturned(imageData, imageExtension) {
+        this.props.setIsAppWorking(true);
         this.props.uploadImage(imageData, imageExtension, ['test'])
         .then(response => {
+            this.props.setIsAppWorking(false);
             console.log(response);
         })
         .catch(ex => {
+            this.props.setIsAppWorking(false);
             console.log(ex);
         });
     }
