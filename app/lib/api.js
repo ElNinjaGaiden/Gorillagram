@@ -1,3 +1,5 @@
+import * as config from '../config';
+
 class Api {
 	static headers() {
 		return {
@@ -24,8 +26,8 @@ class Api {
 	}
 
 	static xhr(route, params, verb) {
-		const host = 'https://res.cloudinary.com/';
-		const url = `${host}${route}`;
+		const host = config.CDNUriBase;
+		const url = `${host}/${route}`;
 		let options = Object.assign({ method: verb }, params ? { body: JSON.stringify(params) } : null);
 		options.headers = Api.headers();
 		return fetch(url, options)
