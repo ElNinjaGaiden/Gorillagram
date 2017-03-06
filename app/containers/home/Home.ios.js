@@ -6,6 +6,18 @@ import * as qs from 'qs';
 
 class Home extends HomeBase {
 
+    menuIcon() {
+        return 'ios-menu';
+    }
+
+    searchIcon() {
+        return 'ios-search';
+    }
+
+    addImageIcon() {
+        return 'ios-add';
+    }
+
     addImageFromGallery() {
         var promise = new Promise((resolve, reject) => {
             ImagePickerIOS.openSelectDialog({}, imageUri => {

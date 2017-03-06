@@ -5,20 +5,27 @@ import {
     View, 
     Text 
 } from 'react-native';
-import FeedImage from './image/FeedImage';
-import { connect } from 'react-redux';
+import FeedImage from '../image/FeedImage';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-class Feed extends Component {
+export default class FeedBase extends Component {
 
     images() {
         return Object.keys(this.props.searchedImages).map(key => this.props.searchedImages[key]);
+    }
+
+    /**
+     * Virtual
+     */
+    noImagesIcon() {
+
     }
 
     render() {
         const images = this.images();
         return (
             images.length ?
-                <ScrollView style={styles.scrollContainer}>
+                <ScrollView>
                     {
                         images.map(image => {
                             return <FeedImage key={image.public_id} image={image} />;
@@ -27,31 +34,26 @@ class Feed extends Component {
                 </ScrollView>
                 :
                 <View style={styles.textContainer}>
+                    <Icon name={this.noImagesIcon()} size={100} color={'#fdf200'} />
                     <Text style={styles.centerText}>No images to display</Text>
                 </View>
         );
     }
+
+    static mapStateToProps(state) {
+        return {
+            searchedImages: state.searchedImages
+        };
+    }
 }
 
 const styles = StyleSheet.create({
-    scrollContainer: {
-        marginBottom: 50
-    },
     textContainer: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
     centerText: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10
+        fontSize: 20
     }
 });
-
-function mapStateToProps(state) {
-    return {
-        searchedImages: state.searchedImages
-    };
-}
-
-export default connect(mapStateToProps)(Feed);

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import Feed from '../../components/feed';
+import Feed from '../../components/feed/feed/Feed';
 import {
     View,
-    TouchableHighlight,
+    TouchableOpacity,
     TextInput,
     Text,
     StyleSheet
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import ActionSheet from 'react-native-actionsheet';
 
 export default class HomeBase extends Component {
@@ -14,39 +15,9 @@ export default class HomeBase extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tag: ''
+            tag: '',
+            topBarButtonsIconColor: '#000000'
         };
-    }
-
-    render() {
-        return (
-            <View>
-                <View style={styles.searchSection}>
-                    <TextInput style={styles.searchInput}
-                        returnKeyType='search'
-                        placeholder='Search by tag'
-                        onChangeText={this.onTagSearchChange.bind(this)}>
-                    </TextInput>
-                    <TouchableHighlight style={[styles.topBarButton, styles.searchButton]} onPress={this.onSearchImagesPress.bind(this)}>
-                        <View style={styles.topBarButtonTextWrapper}>
-                            <Text>Search</Text>
-                        </View>
-                    </TouchableHighlight>
-                    <TouchableHighlight style={styles.topBarButton} onPress={this.onAddImage.bind(this)}>
-                        <View style={styles.topBarButtonTextWrapper}>
-                            <Text>Add</Text>
-                        </View>
-                    </TouchableHighlight>
-                </View>
-                <Feed />
-                <ActionSheet 
-                    ref={(o) => this.addImageActionSheet = o}
-                    options={HomeBase.AddImageOptions}
-                    cancelButtonIndex={HomeBase.AddImageCancelButtonIndex}
-                    onPress={this.onAddImageActionSheetPress.bind(this)}
-                />
-            </View>
-        )
     }
 
     onSearchImagesPress() {
@@ -97,6 +68,27 @@ export default class HomeBase extends Component {
 
     }
 
+    /**
+     * Virtual
+     */
+    menuIcon() {
+
+    }
+
+    /**
+     * Virtual
+     */
+    searchIcon() {
+
+    }
+
+    /**
+     * Virtual
+     */
+    addImageIcon() {
+
+    }
+
     onImageDataReturned(imageData, imageExtension) {
         this.props.setIsAppWorking(true);
         this.props.uploadImage(imageData, imageExtension, ['test'])
@@ -130,6 +122,36 @@ export default class HomeBase extends Component {
             searchedImages: state.searchedImages
         };
     } 
+
+    render() {
+        return (
+            <View style={{flex: 1}}>
+                <View style={styles.searchSection}>
+                    <TouchableOpacity style={[styles.topBarButton, styles.marginRightLeft, styles.marginRightButton]}>
+                        <Icon name={this.menuIcon()} size={40} color={this.state.topBarButtonsIconColor} />
+                    </TouchableOpacity>
+                    <TextInput style={styles.searchInput}
+                        returnKeyType='search'
+                        placeholder='Search by tag'
+                        onChangeText={this.onTagSearchChange.bind(this)}>
+                    </TextInput>
+                    <TouchableOpacity style={[styles.topBarButton, styles.marginRightButton]} onPress={this.onSearchImagesPress.bind(this)}>
+                        <Icon name={this.searchIcon()} size={40} color={this.state.topBarButtonsIconColor} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.topBarButton} onPress={this.onAddImage.bind(this)}>
+                        <Icon name={this.addImageIcon()} size={40} color={this.state.topBarButtonsIconColor} />
+                    </TouchableOpacity>
+                </View>
+                <Feed style={{flex: 1}} />
+                <ActionSheet 
+                    ref={(o) => this.addImageActionSheet = o}
+                    options={HomeBase.AddImageOptions}
+                    cancelButtonIndex={HomeBase.AddImageCancelButtonIndex}
+                    onPress={this.onAddImageActionSheetPress.bind(this)}
+                />
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
@@ -138,20 +160,20 @@ const styles = StyleSheet.create({
         borderBottomColor: '#000',
         borderBottomWidth: 1,
         padding: 5,
+        paddingRight: 0,
         flexDirection: 'row'
     },
     searchInput: {
-        flex: 0.6,
+        flex: 1,
         height: 50,
     },
     topBarButton: {
-        flex: 0.2,
-        borderColor: '#000',
-        borderWidth: 1,
-        borderRadius: 4,
-        backgroundColor: '#fdf200'
+        width: 40
     },
-    searchButton: {
+    marginRightLeft: {
+        marginLeft: 5
+    },
+    marginRightButton: {
         marginRight: 5
     },
     topBarButtonTextWrapper: {
