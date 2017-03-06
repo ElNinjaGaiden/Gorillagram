@@ -1,10 +1,11 @@
 import * as types from './types';
 import Api from '../lib/api';
 import * as config from '../config';
+import * as apiUtils from '../utils/api';
 
 export function fetchImages(tag) {
     return (dispatch, getState) => {
-        return Api.get(`${config.CDNCloudName}/image/list/${encodeURIComponent(tag)}.json`)
+        return Api.get(`${config.CDNUriBase}/${config.CDNCloudName}/image/list/${encodeURIComponent(tag)}.json`)
             .then((response) => {
                 dispatch(setSearchedImages({ images: response.resources }));
             })
@@ -29,4 +30,28 @@ export function setSearchedImages({ images }) {
         type: types.SET_SEARCHED_IMAGES,
         images
     };
+}
+
+export function uploadImage(imageData, imageExtension, tagsArray) {
+    return (dispatch, getState) => {
+        const url = `${config.CDNApiUriBase}/${config.CDNCloudName}/image/upload`;
+        const params = {
+            file: `data:image/${imageExtension};base64,${imageData}`,
+            tags: tagsArray.join(','),
+            api_key: config.CDNApiKey,
+            timestamp: (+ new Date())
+        };
+        params.signature = apiUtils.generateApiSignature(params, config.CDNApiSecret, ['api_key', 'file']);
+        return Api.post(url, params)
+        .then(image => {
+            dispatch({
+                type: types.IMAGE_UPLOADED,
+                image: image
+            });
+            return image;
+        })
+        .catch(ex => {
+            throw ex;
+        });
+    }
 }

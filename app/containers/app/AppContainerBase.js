@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../../actions';
-import Home from '../home';
+import Home from '../home/Home';
 import Spinner from 'react-native-spinkit';
 import { View, StyleSheet } from 'react-native';
 

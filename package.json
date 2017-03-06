@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "15.4.2",
     "react-native": "0.42.0",
+    "react-native-actionsheet": "^2.0.5",
     "react-native-spinkit": "^1.0.2",
     "react-native-vector-icons": "^4.0.0",
     "react-redux": "^5.0.3",
