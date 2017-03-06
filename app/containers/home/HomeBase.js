@@ -83,10 +83,16 @@ export default class HomeBase extends Component {
         }
     }
 
+    /**
+     * Virtual
+     */
     addImageFromGallery() {
 
     }
 
+    /**
+     * Virtual
+     */
     addImageFromCamera() {
 
     }

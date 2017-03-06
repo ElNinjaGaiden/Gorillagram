@@ -13,6 +13,9 @@ export default class AppContainerBase extends Component {
         this.props.resolvePlatform();
     }
 
+    /**
+     * Virtual
+     */
     marginTop () {
         return 0;
     }
