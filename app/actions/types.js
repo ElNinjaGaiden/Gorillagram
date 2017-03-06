@@ -1,3 +1,6 @@
+//Application
+export const SET_IS_APP_WORKING = 'SET_IS_APP_WORKING';
+
 //Images actions
 export const SET_SEARCHED_IMAGES = 'SET_SEARCHED_IMAGES';
 

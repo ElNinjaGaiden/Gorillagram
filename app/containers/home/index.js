@@ -9,24 +9,15 @@ import {
     StyleSheet
 } from 'react-native';
 
-class HomeBase extends Component {
+class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            searching: false,
-            tag: ''
-        };
-    }
-
-    marginTop () {
-        return 0;
     }
 
     render() {
-        const marginTop = this.marginTop();
         return (
-            <View style={{ marginTop: marginTop }}>
+            <View>
                 <View style={styles.searchSection}>
                     <TextInput style={styles.searchInput}
                         returnKeyType='search'
@@ -39,23 +30,20 @@ class HomeBase extends Component {
                         </View>
                     </TouchableHighlight>
                 </View>
-                {
-                    !this.state.searching ?
-                        <Feed />
-                        :
-                        <View style={styles.textContainer}>
-                            <Text style={styles.centerText}>Searching...</Text>
-                        </View>
-                }
+                <Feed />
             </View>
         )
     }
 
     onSearchImagesPress() {
         if (this.state.tag) {
-            this.setState({ searching: true });
-            this.props.fetchImages(this.state.tag).then(() => {
-                this.setState({ searching: false });
+            this.props.setIsAppWorking(true);
+            this.props.fetchImages(this.state.tag)
+            .then(() => {
+                this.props.setIsAppWorking(false);
+            })
+            .catch(() => {
+                this.props.setIsAppWorking(false);
             });
         }
     }
@@ -64,12 +52,6 @@ class HomeBase extends Component {
     onTagSearchChange(tag) {
         this.setState({ tag });
     }
-
-    static mapStateToProps(state) {
-        return {
-            searchedImages: state.searchedImages
-        };
-    } 
 }
 
 const styles = StyleSheet.create({
@@ -96,16 +78,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
-    },
-    textContainer: {
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    centerText: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10
     }
 });
 
-export default HomeBase;
+function mapStateToProps(state) {
+    return {
+        searchedImages: state.searchedImages
+    };
+} 
+
+export default connect(mapStateToProps)(Home);

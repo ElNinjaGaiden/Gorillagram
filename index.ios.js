@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { AppRegistry } from 'react-native';
 import reducer from './app/reducers';
-import AppContainer from './app/containers/AppContainer';
+import AppContainer from './app/containers/app/AppContainer';
 
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
 
