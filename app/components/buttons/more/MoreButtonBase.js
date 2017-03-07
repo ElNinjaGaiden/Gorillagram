@@ -4,7 +4,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class MoreButtonBase extends Component {
 
-	//Override on child/platform specific classes classes
+	/**
+     * Virtual
+     */
 	icon() {
 		return null;
 	}

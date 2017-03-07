@@ -19,6 +19,9 @@ export default class FeedImageBase extends Component {
 		};
 	}
 
+	/**
+     * Virtual
+     */
 	bottomPaddingRight () {
 		return 5;
 	}

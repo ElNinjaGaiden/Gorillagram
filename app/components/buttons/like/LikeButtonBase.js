@@ -11,7 +11,9 @@ export default class LikeButtonBase extends Component {
 		};
 	}
 
-	//Override on child/platform specific classes classes
+	/**
+     * Virtual
+     */
 	icon() {
 		return null;
 	}
