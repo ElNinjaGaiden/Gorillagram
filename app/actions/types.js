@@ -7,4 +7,5 @@ export const NAVIGATION_BACK = 'Navigation/BACK';
 
 //Images actions
 export const SET_SEARCHED_IMAGES = 'SET_SEARCHED_IMAGES';
+export const SET_CURRENT_SEARCH_TAG = 'SET_CURRENT_SEARCH_TAG';
 export const IMAGE_UPLOADED = 'IMAGE_UPLOADED';

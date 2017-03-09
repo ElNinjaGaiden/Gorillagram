@@ -41,9 +41,12 @@ export default class ImageEditorBase extends Component {
             this.props.setIsAppWorking(true);
             this.props.uploadImage(this.props.imageData, this.props.imageExtension, this.state.tags, this.state.caption.trim())
             .then(response => {
-                console.log(response);
                 this.props.setIsAppWorking(false);
                 this.onBackPress();
+                //If the new image contains the current search tag we need to fetch images again
+                if(this.state.tags.indexOf(this.props.currentSearchTag) > -1) {
+                    this.props.fetchImages(this.props.currentSearchTag);
+                }
             })
             .catch(ex => {
                 this.props.setIsAppWorking(false);
@@ -109,7 +112,8 @@ export default class ImageEditorBase extends Component {
         return {
             localUri: state.nav.params.localUri,
             imageData: state.nav.params.imageData,
-            imageExtension: state.nav.params.imageExtension
+            imageExtension: state.nav.params.imageExtension,
+            currentSearchTag: state.currentSearchTag
         };
     }
 }

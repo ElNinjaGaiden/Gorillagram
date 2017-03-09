@@ -32,6 +32,13 @@ export function setSearchedImages({ images }) {
     };
 }
 
+export function setCurrentSearchTag(tag) {
+    return {
+        type: types.SET_CURRENT_SEARCH_TAG,
+        tag
+    };
+}
+
 export function uploadImage(imageData, imageExtension, tagsArray, caption) {
     return (dispatch, getState) => {
         const url = `${config.CDNApiUriBase}/${config.CDNCloudName}/image/upload`;

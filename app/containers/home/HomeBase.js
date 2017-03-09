@@ -22,6 +22,7 @@ export default class HomeBase extends Component {
 
     onSearchImagesPress() {
         if (this.state.tag) {
+            this.props.setCurrentSearchTag(this.state.tag);
             this.props.setIsAppWorking(true);
             this.props.fetchImages(this.state.tag)
             .then(() => {
@@ -95,7 +96,14 @@ export default class HomeBase extends Component {
 
     //NOTE: current available tags on Cloudinary CDN: gorilla, pets, team, presentation, costarica, jam, boulder
     onTagSearchChange(tag) {
-        this.setState({ tag });
+        let _tag = '';
+        if(tag) {
+            const valuesToSplit = tag.trim();
+            if(valuesToSplit.length) {
+                _tag = valuesToSplit.split(' ')[0] || '';
+            }
+        }
+        this.setState({ tag: _tag });
     }
 
     render() {
@@ -142,7 +150,8 @@ export default class HomeBase extends Component {
 
     static mapStateToProps(state) {
         return {
-            searchedImages: state.searchedImages
+            searchedImages: state.searchedImages,
+
         };
     } 
 }
