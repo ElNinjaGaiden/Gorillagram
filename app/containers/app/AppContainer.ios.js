@@ -9,4 +9,4 @@ class AppContainer extends AppContainerBase {
     }
 }
 
-export default connect(AppContainerBase.mapStateToProps, AppContainerBase.mapDispatchToPros)(AppContainer);
+export default connect(AppContainerBase.mapStateToProps)(AppContainer); //, AppContainerBase.mapDispatchToPros
