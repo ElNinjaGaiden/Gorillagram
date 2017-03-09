@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { ActionCreators } from '../../actions';
-import Home from '../home/Home';
-import Spinner from 'react-native-spinkit';
+import { addNavigationHelpers } from 'react-navigation';
 import { View, StyleSheet } from 'react-native';
+import AppNavigator from './AppNavigator';
+import Spinner from 'react-native-spinkit';
 
-export default class AppContainerBase extends Component {
-
-    constructor(props) {
-        super(props);
-        this.props.resolvePlatform();
-    }
+export default class NavigationContainerBase extends Component {
 
     /**
      * Virtual
@@ -22,9 +15,13 @@ export default class AppContainerBase extends Component {
 
     render() {
         const marginTop = this.marginTop();
+        const navHelpersConfig = {
+            dispatch: this.props.dispatch,
+            state: this.props.nav
+        };
         return (
             <View style={[styles.container, { marginTop: marginTop }]}>
-                <Home {...this.props} />
+                <AppNavigator navigation={addNavigationHelpers(navHelpersConfig)} />
                 {
                     this.props.isAppWorking && 
                     <View style={styles.spinnerContainer}>
@@ -35,17 +32,14 @@ export default class AppContainerBase extends Component {
                     </View>   
                 }
             </View>
-        )
+        );
     }
 
-    static mapDispatchToPros(dispatch) {
-        return bindActionCreators(ActionCreators, dispatch);
-    }
-
-    static mapStateToProps (state) {
+    static mapToStateProps(state) {
         return {
+            nav: state.nav,
             isAppWorking: state.isAppWorking
-        };
+        }
     }
 }
 

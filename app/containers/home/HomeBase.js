@@ -41,8 +41,8 @@ export default class HomeBase extends Component {
         switch(index) {
             case HomeBase.AddImageFromGalleryButtonIndex:
                 this.addImageFromGallery()
-                .then((imageData, imageExtension) => {
-                    this.onImageDataReturned(imageData, imageExtension);
+                .then(image => {
+                    this.onImageDataReturned(image);
                 })
                 .catch(error => {
                     error && console.log(error);
@@ -89,17 +89,8 @@ export default class HomeBase extends Component {
 
     }
 
-    onImageDataReturned(imageData, imageExtension) {
-        this.props.setIsAppWorking(true);
-        this.props.uploadImage(imageData, imageExtension, ['test'])
-        .then(response => {
-            this.props.setIsAppWorking(false);
-            console.log(response);
-        })
-        .catch(ex => {
-            this.props.setIsAppWorking(false);
-            console.log(ex);
-        });
+    onImageDataReturned(image) {
+        this.props.navigation.navigate('ImageEditor', image)
     }
 
     //NOTE: current available tags on Cloudinary CDN: gorilla, pets, team, presentation, costarica, jam, boulder
@@ -125,7 +116,7 @@ export default class HomeBase extends Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View style={styles.container}>
                 <View style={styles.searchSection}>
                     <TouchableOpacity style={[styles.topBarButton, styles.marginRightLeft, styles.marginRightButton]}>
                         <Icon name={this.menuIcon()} size={40} color={this.state.topBarButtonsIconColor} />
@@ -155,6 +146,10 @@ export default class HomeBase extends Component {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#FFF'
+    },
     searchSection: {
         height: 50,
         borderBottomColor: '#000',

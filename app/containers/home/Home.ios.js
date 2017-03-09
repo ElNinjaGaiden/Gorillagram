@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import mapDispatchToPros from '../../reducers/combined';
 import HomeBase from './HomeBase';
 import { connect } from 'react-redux';
 import { ImagePickerIOS, NativeModules } from 'react-native';
@@ -21,9 +22,9 @@ class Home extends HomeBase {
     addImageFromGallery() {
         var promise = new Promise((resolve, reject) => {
             ImagePickerIOS.openSelectDialog({}, imageUri => {
-                const extension = qs.parse(imageUri).ext.toLowerCase();
+                const imageExtension = qs.parse(imageUri).ext.toLowerCase();
                 NativeModules.ReadImageData.readImage(imageUri, (imageData) => {
-                    resolve(imageData, extension);
+                    resolve({imageData, imageExtension});
                 });
             }, error => {
                 reject(error);
@@ -34,4 +35,4 @@ class Home extends HomeBase {
     }
 }
 
-export default connect(HomeBase.mapStateToProps)(Home);
+export default connect(HomeBase.mapStateToProps, mapDispatchToPros)(Home);
