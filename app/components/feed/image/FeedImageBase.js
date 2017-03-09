@@ -3,6 +3,7 @@ import {
 	View,
 	Image,
 	Dimensions,
+	Text,
 	StyleSheet
 } from 'react-native';
 import * as imageUtils from '../../..//utils/images';
@@ -39,6 +40,12 @@ export default class FeedImageBase extends Component {
 				<Image source={{ uri: imageUrl }}
 					style={[styles.image, { width: this.state.imageWidth }]}>
 				</Image>
+				{
+					this.props.image.context && this.props.image.context.custom && this.props.image.context.custom.caption &&
+					<View style={styles.captionContainer}>
+						<Text style={styles.captionText} >{this.props.image.context.custom.caption}</Text>
+					</View>
+				}
 				<View style={[styles.bottom, {paddingRight: bottomPaddingRight}]}>
 					<LikeButton style={styles.likeButton}></LikeButton>
 					<CommentButton style={styles.commentButton}></CommentButton>
@@ -53,7 +60,6 @@ export default class FeedImageBase extends Component {
 
 const styles = StyleSheet.create({
 	feedEntry: {
-		height: 500,
 		borderBottomColor: '#000',
 		borderBottomWidth: 1,
 	},
@@ -67,6 +73,13 @@ const styles = StyleSheet.create({
 	},
 	image: {
 		height: 400
+	},
+	captionContainer: {
+		padding: 10
+	},
+	captionText: {
+		fontSize: 16,
+		color: '#696969'
 	},
 	bottom: {
 		height: 50,

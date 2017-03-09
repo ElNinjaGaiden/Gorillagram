@@ -32,7 +32,7 @@ export function setSearchedImages({ images }) {
     };
 }
 
-export function uploadImage(imageData, imageExtension, tagsArray) {
+export function uploadImage(imageData, imageExtension, tagsArray, caption) {
     return (dispatch, getState) => {
         const url = `${config.CDNApiUriBase}/${config.CDNCloudName}/image/upload`;
         const params = {
@@ -41,7 +41,11 @@ export function uploadImage(imageData, imageExtension, tagsArray) {
             api_key: config.CDNApiKey,
             timestamp: (+ new Date())
         };
+        if(caption) {
+            params.context = `caption=${caption}`;
+        }
         params.signature = apiUtils.generateApiSignature(params, config.CDNApiSecret, ['api_key', 'file']);
+
         return Api.post(url, params)
         .then(image => {
             dispatch({

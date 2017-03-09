@@ -98,22 +98,6 @@ export default class HomeBase extends Component {
         this.setState({ tag });
     }
 
-    static AddImageOptions = [
-        'Gallery',
-        'Camera',
-        'Cancel'
-    ]
-
-    static AddImageFromGalleryButtonIndex = 0;
-    static AddImageFromCameraButtonIndex = 1;
-    static AddImageCancelButtonIndex = 2;
-
-    static mapStateToProps(state) {
-        return {
-            searchedImages: state.searchedImages
-        };
-    } 
-
     render() {
         return (
             <View style={styles.container}>
@@ -124,6 +108,8 @@ export default class HomeBase extends Component {
                     <TextInput style={styles.searchInput}
                         returnKeyType='search'
                         placeholder='Search by tag'
+                        autoCapitalize='none'
+                        autoFocus={true}
                         onChangeText={this.onTagSearchChange.bind(this)}>
                     </TextInput>
                     <TouchableOpacity style={[styles.topBarButton, styles.marginRightButton]} onPress={this.onSearchImagesPress.bind(this)}>
@@ -143,6 +129,22 @@ export default class HomeBase extends Component {
             </View>
         )
     }
+
+    static AddImageOptions = [
+        'Gallery',
+        'Camera',
+        'Cancel'
+    ]
+
+    static AddImageFromGalleryButtonIndex = 0;
+    static AddImageFromCameraButtonIndex = 1;
+    static AddImageCancelButtonIndex = 2;
+
+    static mapStateToProps(state) {
+        return {
+            searchedImages: state.searchedImages
+        };
+    } 
 }
 
 const styles = StyleSheet.create({

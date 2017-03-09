@@ -24,7 +24,12 @@ class Home extends HomeBase {
             ImagePickerIOS.openSelectDialog({}, imageUri => {
                 const imageExtension = qs.parse(imageUri).ext.toLowerCase();
                 NativeModules.ReadImageData.readImage(imageUri, (imageData) => {
-                    resolve({imageData, imageExtension});
+                    const image = {
+                        localUri: imageUri,
+                        imageData,
+                        imageExtension,
+                    };
+                    resolve(image);
                 });
             }, error => {
                 reject(error);
