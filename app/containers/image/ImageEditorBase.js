@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { styleButtons } from '../../styles/common/buttons';
+import CheckBox from '../../components/fields/CheckBox';
 
 export default class ImageEditorBase extends Component {
 
@@ -104,6 +105,7 @@ export default class ImageEditorBase extends Component {
                             onSubmitEditing={this.onUploadImage.bind(this)}
                             underlineColorAndroid='transparent'>
                         </TextInput>
+                        <CheckBox checked={true} label='Include location' />
                     </View>
                     <View style={styles.formThumbnail}>
                         <Image source={{uri: imageUri}} style={styles.thumbnail} />
