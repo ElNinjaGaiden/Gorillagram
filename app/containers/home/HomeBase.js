@@ -6,6 +6,7 @@ import {
     Text,
     StyleSheet
 } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ActionSheet from 'react-native-actionsheet';
 import Feed from '../../components/feed/feed/Feed';
@@ -35,39 +36,35 @@ export default class HomeBase extends Component {
         }
     }
 
+    //NOTE: current available tags on Cloudinary CDN: gorilla, pets, team, presentation, costarica, jam, boulder
+    onTagSearchChange(tag) {
+        let _tag = '';
+        if(tag) {
+            const valuesToSplit = tag.trim();
+            if(valuesToSplit.length) {
+                _tag = valuesToSplit.split(' ')[0] || '';
+            }
+        }
+        this.setState({ tag: _tag });
+    }
+
     onAddImage() {
         this.addImageActionSheet.show();
     }
 
     onAddImageActionSheetPress(index) {
-        switch(index) {
-            case HomeBase.AddImageFromGalleryButtonIndex:
-                this.addImageFromGallery()
-                .then(image => {
-                    this.onImageDataReturned(image);
-                })
-                .catch(error => {
-                    error && console.log(error);
-                });
-                break;
-
-            case HomeBase.AddImageFromCameraButtonIndex:
-                break;
-        }
+        const methodName = index == HomeBase.AddImageFromGalleryButtonIndex ? 'launchImageLibrary' : 'launchCamera';
+        ImagePicker[methodName]({}, response => {
+            if(response.error) {
+                console.log(error);
+                return;
+            }
+            !response.didCancel && response.data && this.onImageDataReturned(response);
+        });
     }
 
-    /**
-     * Virtual
-     */
-    addImageFromGallery() {
-
-    }
-
-    /**
-     * Virtual
-     */
-    addImageFromCamera() {
-
+    onImageDataReturned(imageData) {
+        this.props.navigation.navigate('ImageEditor', { imageData })
     }
 
     /**
@@ -91,22 +88,6 @@ export default class HomeBase extends Component {
 
     }
 
-    onImageDataReturned(image) {
-        this.props.navigation.navigate('ImageEditor', image)
-    }
-
-    //NOTE: current available tags on Cloudinary CDN: gorilla, pets, team, presentation, costarica, jam, boulder
-    onTagSearchChange(tag) {
-        let _tag = '';
-        if(tag) {
-            const valuesToSplit = tag.trim();
-            if(valuesToSplit.length) {
-                _tag = valuesToSplit.split(' ')[0] || '';
-            }
-        }
-        this.setState({ tag: _tag });
-    }
-
     render() {
         return (
             <View style={styles.container}>
@@ -118,7 +99,9 @@ export default class HomeBase extends Component {
                         returnKeyType='search'
                         placeholder='Search by tag'
                         autoCapitalize='none'
-                        onChangeText={this.onTagSearchChange.bind(this)}>
+                        onChangeText={this.onTagSearchChange.bind(this)}
+                        onSubmitEditing={this.onSearchImagesPress.bind(this)}
+                        underlineColorAndroid='transparent'>
                     </TextInput>
                     <TouchableOpacity style={styleButtons.iconButton} onPress={this.onSearchImagesPress.bind(this)}>
                         <Icon name={this.searchIcon()} size={40} color={this.state.topBarButtonsIconColor} />

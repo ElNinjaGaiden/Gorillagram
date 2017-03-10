@@ -75,6 +75,7 @@ export default class ImageEditorBase extends Component {
         const cancelIcon = this.cancelIcon();
         const uploadIcon = this.uploadIcon();
         const iconColor = '#000000';
+        const imageUri = `data:image/jpeg;base64,${this.props.imageData}`;
         return (
             <View style={styles.container}>
                 <View style={styles.topBar}>
@@ -94,15 +95,18 @@ export default class ImageEditorBase extends Component {
                         <TextInput style={styles.textInput}
                             placeholder='tags (at lest one required)'
                             autoCapitalize='none'
-                            onChangeText={this.onTagChange.bind(this)}>
+                            onChangeText={this.onTagChange.bind(this)}
+                            underlineColorAndroid='transparent'>
                         </TextInput>
                         <TextInput style={styles.textInput}
-                            placeholder='caption'
-                            onChangeText={this.onCaptionChange.bind(this)}>
+                            placeholder='caption (optional)'
+                            onChangeText={this.onCaptionChange.bind(this)}
+                            onSubmitEditing={this.onUploadImage.bind(this)}
+                            underlineColorAndroid='transparent'>
                         </TextInput>
                     </View>
                     <View style={styles.formThumbnail}>
-                        <Image source={{uri: this.props.localUri}} style={styles.thumbnail} />
+                        <Image source={{uri: imageUri}} style={styles.thumbnail} />
                     </View>
                 </View>
             </View>
@@ -110,10 +114,10 @@ export default class ImageEditorBase extends Component {
     }
 
     static mapToStateProps(state) {
+        console.log('State', state);
         return {
-            localUri: state.nav.params.localUri,
-            imageData: state.nav.params.imageData,
-            imageExtension: state.nav.params.imageExtension,
+            imageData: state.nav.params.imageData.data,
+            imageExtension: state.nav.params.imageData.fileName ? state.nav.params.imageData.fileName.split('.')[1].toLowerCase() : 'jpg',
             currentSearchTag: state.currentSearchTag
         };
     }
