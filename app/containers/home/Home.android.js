@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import mapDispatchToPros from '../../reducers/combined';
 import HomeBase from './HomeBase';
 import { connect } from 'react-redux';
 
@@ -18,4 +19,4 @@ class Home extends HomeBase {
 
 }
 
-export default connect(HomeBase.mapStateToProps)(Home);
+export default connect(HomeBase.mapStateToProps, mapDispatchToPros)(Home);

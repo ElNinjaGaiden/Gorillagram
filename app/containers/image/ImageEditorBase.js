@@ -7,6 +7,7 @@ import {
     TextInput 
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { styleButtons } from '../../styles/common/buttons';
 
 export default class ImageEditorBase extends Component {
 
@@ -78,12 +79,12 @@ export default class ImageEditorBase extends Component {
             <View style={styles.container}>
                 <View style={styles.topBar}>
                     <View style={[styles.topBarSection, styles.topBarSectionStart]}>
-                        <TouchableOpacity onPress={this.onBackPress.bind(this)} style={styles.topBarButton}>
+                        <TouchableOpacity onPress={this.onBackPress.bind(this)} style={styleButtons.iconButton}>
                             <Icon name={cancelIcon} size={40} color={iconColor} />
                         </TouchableOpacity>
                     </View>
                     <View style={[styles.topBarSection, styles.topBarSectionEnd]}>
-                        <TouchableOpacity onPress={this.onUploadImage.bind(this)} style={styles.topBarButton}>
+                        <TouchableOpacity onPress={this.onUploadImage.bind(this)} style={styleButtons.iconButton}>
                             <Icon name={uploadIcon} size={40} color={iconColor} />
                         </TouchableOpacity>
                     </View>
@@ -138,13 +139,6 @@ const styles = StyleSheet.create({
     },
     topBarSectionEnd: {
         alignItems: 'flex-end'
-    },
-    topBarButton: {
-        width: 40,
-        height: 40,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
     },
     formContainer: {
         flexDirection: 'row'

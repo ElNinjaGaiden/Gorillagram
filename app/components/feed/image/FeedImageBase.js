@@ -7,6 +7,7 @@ import {
 	StyleSheet
 } from 'react-native';
 import * as imageUtils from '../../..//utils/images';
+import { styleButtons } from '../../../styles/common/buttons';
 import LikeButton from '../../buttons/like/LikeButton';
 import CommentButton from '../../buttons/comment/CommentButton';
 import MoreButton from '../../buttons/more/MoreButton';
@@ -47,8 +48,8 @@ export default class FeedImageBase extends Component {
 					</View>
 				}
 				<View style={[styles.bottom, {paddingRight: bottomPaddingRight}]}>
-					<LikeButton style={styles.likeButton}></LikeButton>
-					<CommentButton style={styles.commentButton}></CommentButton>
+					<LikeButton />
+					<CommentButton style={styleButtons.marginLeftButton}/>
 					<View style={styles.moreButtonWrapper}>
 						<MoreButton />
 					</View>
@@ -82,15 +83,10 @@ const styles = StyleSheet.create({
 		color: '#696969'
 	},
 	bottom: {
-		height: 50,
-		padding: 5,
+		//Why this weird math??
+		padding: 10,
+		paddingBottom: 5,
 		flexDirection: 'row'
-	},
-	likeButton: {
-		marginLeft: 10
-	},
-	commentButton: {
-		marginLeft: 10
 	},
 	moreButtonWrapper: {
 		flex: 1,

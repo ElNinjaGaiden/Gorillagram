@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Feed from '../../components/feed/feed/Feed';
 import {
     View,
     TouchableOpacity,
@@ -9,6 +8,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ActionSheet from 'react-native-actionsheet';
+import Feed from '../../components/feed/feed/Feed';
+import { styleButtons } from '../../styles/common/buttons';
 
 export default class HomeBase extends Component {
 
@@ -110,7 +111,7 @@ export default class HomeBase extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.searchSection}>
-                    <TouchableOpacity style={[styles.topBarButton, styles.marginRightLeft, styles.marginRightButton]}>
+                    <TouchableOpacity style={[styleButtons.iconButton, styleButtons.marginRightButton]}>
                         <Icon name={this.menuIcon()} size={40} color={this.state.topBarButtonsIconColor} />
                     </TouchableOpacity>
                     <TextInput style={styles.searchInput}
@@ -120,10 +121,10 @@ export default class HomeBase extends Component {
                         autoFocus={true}
                         onChangeText={this.onTagSearchChange.bind(this)}>
                     </TextInput>
-                    <TouchableOpacity style={[styles.topBarButton, styles.marginRightButton]} onPress={this.onSearchImagesPress.bind(this)}>
+                    <TouchableOpacity style={styleButtons.iconButton} onPress={this.onSearchImagesPress.bind(this)}>
                         <Icon name={this.searchIcon()} size={40} color={this.state.topBarButtonsIconColor} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.topBarButton} onPress={this.onAddImage.bind(this)}>
+                    <TouchableOpacity style={styleButtons.iconButton} onPress={this.onAddImage.bind(this)}>
                         <Icon name={this.addImageIcon()} size={40} color={this.state.topBarButtonsIconColor} />
                     </TouchableOpacity>
                 </View>
@@ -171,16 +172,7 @@ const styles = StyleSheet.create({
     },
     searchInput: {
         flex: 1,
-        height: 50,
-    },
-    topBarButton: {
-        width: 40
-    },
-    marginRightLeft: {
-        marginLeft: 5
-    },
-    marginRightButton: {
-        marginRight: 5
+        height: 40,
     },
     topBarButtonTextWrapper: {
         flex: 1,

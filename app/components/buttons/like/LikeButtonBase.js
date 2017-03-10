@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { styleButtons } from '../../../styles/common/buttons';
 
 export default class LikeButtonBase extends Component {
 
@@ -22,7 +23,7 @@ export default class LikeButtonBase extends Component {
 		const icon = this.icon();
 		const iconColor = this.state.liked ? '#DC143C' : '#D3D3D3';
 		return (
-			<TouchableOpacity onPress={this.handlePress.bind(this)} style={[this.props.style || {}, { width: 40, height: 40 }]}>
+			<TouchableOpacity onPress={this.handlePress.bind(this)} style={[this.props.style || {}, styleButtons.iconButton]}>
 				<Icon name={icon} size={40} color={iconColor} />
 			</TouchableOpacity>
 		)

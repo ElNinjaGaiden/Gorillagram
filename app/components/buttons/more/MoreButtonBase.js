@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { styleButtons } from '../../../styles/common/buttons';
 
 export default class MoreButtonBase extends Component {
 
@@ -15,7 +16,8 @@ export default class MoreButtonBase extends Component {
 		const icon = this.icon();
 		const iconColor = '#D3D3D3';
 		return (
-			<TouchableOpacity style={[this.props.style || {}, { width: 40, height: 40 }]}>
+			// { width: 40, height: 40 }
+			<TouchableOpacity style={[this.props.style || {}, styleButtons.iconButton]}>
 				<Icon name={icon} size={40} color={iconColor} />
 			</TouchableOpacity>
 		)
