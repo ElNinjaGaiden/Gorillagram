@@ -118,7 +118,6 @@ export default class HomeBase extends Component {
                         returnKeyType='search'
                         placeholder='Search by tag'
                         autoCapitalize='none'
-                        autoFocus={true}
                         onChangeText={this.onTagSearchChange.bind(this)}>
                     </TextInput>
                     <TouchableOpacity style={styleButtons.iconButton} onPress={this.onSearchImagesPress.bind(this)}>
