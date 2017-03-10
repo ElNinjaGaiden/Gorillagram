@@ -16,7 +16,6 @@ class Home extends HomeBase {
     addImageIcon() {
         return 'md-add';
     }
-
 }
 
 export default connect(HomeBase.mapStateToProps, mapDispatchToPros)(Home);
