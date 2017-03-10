@@ -21,7 +21,8 @@ export default class NavigationContainerBase extends Component {
         };
         return (
             <View style={[styles.container, { marginTop: marginTop }]}>
-                <AppNavigator navigation={addNavigationHelpers(navHelpersConfig)} />
+                <AppNavigator navigation={addNavigationHelpers(navHelpersConfig)}
+                    ref={(o) => this.appNavigator = o} />
                 {
                     this.props.isAppWorking && 
                     <View style={styles.spinnerContainer}>

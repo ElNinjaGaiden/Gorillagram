@@ -34,7 +34,7 @@ export default class ImageEditorBase extends Component {
     }
 
     onBackPress() {
-        this.props.navigation.goBack('Home');
+        this.props.navigation.goBack();
     }
 
     onUploadImage() {
