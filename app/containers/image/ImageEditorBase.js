@@ -116,7 +116,6 @@ export default class ImageEditorBase extends Component {
     }
 
     static mapToStateProps(state) {
-        console.log('State', state);
         return {
             imageData: state.nav.params.imageData.data,
             imageExtension: state.nav.params.imageData.fileName ? state.nav.params.imageData.fileName.split('.')[1].toLowerCase() : 'jpg',
