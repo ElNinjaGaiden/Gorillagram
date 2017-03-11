@@ -20,9 +20,13 @@ export default class CheckBoxBase extends Component {
     }
 
     toggleChecked() {
+        const newState = !this.state.checked
         this.setState({
-            checked: !this.state.checked
+            checked: newState
         });
+        if(typeof this.props.onCheckedChange === 'function') {
+            this.props.onCheckedChange(newState);
+        }
     }
 
     render() {
