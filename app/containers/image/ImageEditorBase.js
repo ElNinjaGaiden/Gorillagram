@@ -99,7 +99,6 @@ export default class ImageEditorBase extends Component {
     }
 
     onSaveLocationChanged(checked) {
-        console.log('Cccc', checked);
         this.setState({saveLocation: checked});
     }
 
