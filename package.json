@@ -11,6 +11,7 @@
     "react-native": "0.42.0",
     "react-native-actionsheet": "^2.0.5",
     "react-native-image-picker": "^0.26.1",
+    "react-native-maps": "^0.13.0",
     "react-native-spinkit": "^1.0.2",
     "react-native-vector-icons": "^4.0.0",
     "react-navigation": "^1.0.0-beta.6",

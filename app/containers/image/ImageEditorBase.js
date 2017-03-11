@@ -8,7 +8,10 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { styleButtons } from '../../styles/common/buttons';
+import MapView from 'react-native-maps';
 import CheckBox from '../../components/fields/CheckBox';
+
+const DEFAULT_PADDING = { top: 40, right: 40, bottom: 40, left: 40 };
 
 export default class ImageEditorBase extends Component {
 
@@ -16,8 +19,24 @@ export default class ImageEditorBase extends Component {
         super(props);
         this.state = {
             tags: [],
-            caption: ''
+            caption: '',
+            saveLocation: true,
+            mapCenter: null
         };
+    }
+
+    componentDidMount() {
+        navigator.geolocation.getCurrentPosition(position => {
+            this.setState({
+                mapCenter: {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                }
+            });
+            //this.fitMap();
+        }, (error) => {
+            error && console.log(error);
+        });
     }
 
     /**
@@ -40,8 +59,15 @@ export default class ImageEditorBase extends Component {
 
     onUploadImage() {
         if(this.state.tags && this.state.tags.length) {
+            const image = {
+                data: this.props.imageData,
+                imageExtension: this.props.imageExtension,
+                tags: this.state.tags,
+                caption: this.state.caption.trim(),
+                location: this.state.saveLocation && this.state.mapCenter ? this.state.mapCenter : null
+            };
             this.props.setIsAppWorking(true);
-            this.props.uploadImage(this.props.imageData, this.props.imageExtension, this.state.tags, this.state.caption.trim())
+            this.props.uploadImage(image)
             .then(response => {
                 this.props.setIsAppWorking(false);
                 this.onBackPress();
@@ -70,6 +96,22 @@ export default class ImageEditorBase extends Component {
 
     onCaptionChange(caption) {
         this.setState({caption});
+    }
+
+    onSaveLocationChanged(checked) {
+        console.log('Cccc', checked);
+        this.setState({saveLocation: checked});
+    }
+
+    fitMap() {
+        this.map.fitToCoordinates([this.state.mapCenter], {
+            edgePadding: DEFAULT_PADDING,
+            animated: true,
+        });
+    }
+
+    onMapMarkerDragEnd(e) {
+        this.setState({mapCenter: e.nativeEvent.coordinate});
     }
 
     render() {
@@ -105,12 +147,29 @@ export default class ImageEditorBase extends Component {
                             onSubmitEditing={this.onUploadImage.bind(this)}
                             underlineColorAndroid='transparent'>
                         </TextInput>
-                        <CheckBox checked={true} label='Include location' />
+                        <CheckBox checked={this.state.saveLocation} label='Include location' onCheckedChange={this.onSaveLocationChanged.bind(this)} />
                     </View>
                     <View style={styles.formThumbnail}>
                         <Image source={{uri: imageUri}} style={styles.thumbnail} />
                     </View>
                 </View>
+                {
+                    this.state.mapCenter &&
+                    <View style={styles.mapContainer}>
+                        <MapView
+                            ref={ref => { this.map = ref; }}
+                            style={styles.map}
+                            initialRegion={{
+                            latitude: this.state.mapCenter.latitude,
+                            longitude: this.state.mapCenter.longitude,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421,
+                            }}>
+                            <MapView.Marker coordinate={this.state.mapCenter} draggable
+                                            onDragEnd={this.onMapMarkerDragEnd.bind(this)}/>
+                        </MapView>
+                    </View>
+                }
             </View>
         )
     }
@@ -164,5 +223,16 @@ const styles = StyleSheet.create({
     thumbnail: {
         height: 85,
         width: 85
+    },
+    mapContainer: {
+        flex: 1,
+        marginTop: 20
+    },
+    map: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
     }
 });
