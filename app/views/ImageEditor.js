@@ -121,18 +121,20 @@ class ImageEditor extends Component {
                 <View style={styles.formContainer}>
                     <View style={styles.formInputs}>
                         <TextInput style={styles.textInput}
-                            placeholder='tags (at lest one required)'
+                            placeholder={this.props.locales.imageEditor.tagsPlaceholder}
                             autoCapitalize='none'
                             onChangeText={this.onTagChange.bind(this)}
                             underlineColorAndroid='transparent'>
                         </TextInput>
                         <TextInput style={styles.textInput}
-                            placeholder='caption (optional)'
+                            placeholder={this.props.locales.imageEditor.captionPlaceholder}
                             onChangeText={this.onCaptionChange.bind(this)}
                             onSubmitEditing={this.onUploadImage.bind(this)}
                             underlineColorAndroid='transparent'>
                         </TextInput>
-                        <CheckBox checked={this.state.saveLocation} label='Include location' onCheckedChange={this.onSaveLocationChanged.bind(this)} />
+                        <CheckBox checked={this.state.saveLocation} 
+                                label={this.props.locales.imageEditor.includeLocation} 
+                                onCheckedChange={this.onSaveLocationChanged.bind(this)} />
                     </View>
                     <View style={styles.formThumbnail}>
                         <Image source={{uri: imageUri}} style={styles.thumbnail} />
@@ -163,7 +165,8 @@ class ImageEditor extends Component {
         return {
             imageData: state.nav.params.imageData.data,
             imageExtension: state.nav.params.imageData.fileName ? state.nav.params.imageData.fileName.split('.')[1].toLowerCase() : 'jpg',
-            currentSearchTag: state.currentSearchTag
+            currentSearchTag: state.currentSearchTag,
+            locales: state.locales
         };
     }
 }

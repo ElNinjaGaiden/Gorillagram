@@ -1,5 +1,6 @@
 //Application
 export const SET_IS_APP_WORKING = 'SET_IS_APP_WORKING';
+export const SET_LOCALES = 'SET_LOCALES';
 
 //Navigation
 export const NAVIGATION_NAVIGATE = 'Navigation/NAVIGATE';
