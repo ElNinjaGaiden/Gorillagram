@@ -4,7 +4,7 @@ export default en_US = {
         addImageOptions: [
             'Gallery',
             'Camera',
-            'Cancell'
+            'Cancel'
         ]
     },
     feed: {
