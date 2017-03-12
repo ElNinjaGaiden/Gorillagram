@@ -1,4 +1,5 @@
 export default es_CR = {
+    localeKey: 'es-CR',
     home: {
         searchByTag: 'Buscar por tag',
         addImageOptions: [

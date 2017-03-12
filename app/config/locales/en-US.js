@@ -1,4 +1,5 @@
 export default en_US = {
+    localeKey: 'en-US',
     home: {
         searchByTag: 'Search by tag',
         addImageOptions: [
