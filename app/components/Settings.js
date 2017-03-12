@@ -33,6 +33,8 @@ class Settings extends Component {
         );
     }
 
+    static CancelButtonIndex = 2;
+
     static mapStateToProps(state) {
         return {
             locales: state.locales

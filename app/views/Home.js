@@ -55,14 +55,16 @@ class Home extends Component {
     }
 
     onAddImageActionSheetPress(index) {
-        const methodName = index == Home.AddImageFromGalleryButtonIndex ? 'launchImageLibrary' : 'launchCamera';
-        ImagePicker[methodName]({}, response => {
-            if(response.error) {
-                console.log(response.error);
-                return;
-            }
-            !response.didCancel && response.data && this.onImageDataReturned(response);
-        });
+        if(index < 2) {
+            const methodName = (index === Home.AddImageFromGalleryButtonIndex) ? 'launchImageLibrary' : 'launchCamera';
+            ImagePicker[methodName]({}, response => {
+                if(response.error) {
+                    console.log(response.error);
+                    return;
+                }
+                !response.didCancel && response.data && this.onImageDataReturned(response);
+            });
+        }
     }
 
     onImageDataReturned(imageData) {
