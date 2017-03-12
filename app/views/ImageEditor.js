@@ -142,7 +142,7 @@ class ImageEditor extends Component {
                 </View>
                 {
                     this.state.mapCenter &&
-                    <View style={[mapStyles.mapContainer, styles.mapContainer]}>
+                    <View style={mapStyles.mapContainer}>
                         <MapView
                             ref={ref => { this.map = ref; }}
                             style={mapStyles.map}
@@ -182,7 +182,8 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end'
     },
     formContainer: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingBottom: 20
     },
     formInputs: {
         flex: 1,
@@ -200,9 +201,6 @@ const styles = StyleSheet.create({
     thumbnail: {
         height: 85,
         width: 85
-    },
-    mapContainer: {
-        marginTop: 20
     }
 });
 

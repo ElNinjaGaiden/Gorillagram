@@ -7,6 +7,13 @@ export default toolbarStyles = StyleSheet.create({
         borderBottomColor: blackColor,
         borderBottomWidth: 1,
         padding: 5,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        shadowColor: blackColor,
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0
+        }
     }
 });
