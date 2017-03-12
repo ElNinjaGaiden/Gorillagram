@@ -10,7 +10,8 @@ import ActionSheet from 'react-native-actionsheet';
 import mapDispatchToPros from '../reducers/combined';
 import IconButton from '../components/IconButton';
 import Feed from '../components/feed';
-import { menuIcon, searchIcon, addIcon } from '../utils/icons';
+import Settings from '../components/Settings';
+import { searchIcon, addIcon } from '../utils/icons';
 import { viewStyles, toolbarStyles, buttonsStyles } from '../styles';
 import { blackColor } from '../styles/colors';
 
@@ -72,10 +73,10 @@ class Home extends Component {
         return (
             <View style={viewStyles.viewContainer}>
                 <View style={toolbarStyles.toolbar}>
-                    <IconButton icon={menuIcon} color={blackColor} />
+                    <Settings />
                     <TextInput style={styles.searchInput}
                         returnKeyType='search'
-                        placeholder='Search by tag'
+                        placeholder={this.props.locales.home.searchByTag}
                         autoCapitalize='none'
                         onChangeText={this.onTagSearchChange.bind(this)}
                         onSubmitEditing={this.onSearchImagesPress.bind(this)}
@@ -87,19 +88,13 @@ class Home extends Component {
                 <Feed style={{flex: 1}} navigation={this.props.navigation} />
                 <ActionSheet 
                     ref={(o) => this.addImageActionSheet = o}
-                    options={Home.AddImageOptions}
+                    options={this.props.locales.home.addImageOptions}
                     cancelButtonIndex={Home.AddImageCancelButtonIndex}
                     onPress={this.onAddImageActionSheetPress.bind(this)}
                 />
             </View>
         )
     }
-
-    static AddImageOptions = [
-        'Gallery',
-        'Camera',
-        'Cancel'
-    ]
 
     static AddImageFromGalleryButtonIndex = 0;
     static AddImageFromCameraButtonIndex = 1;
@@ -108,7 +103,7 @@ class Home extends Component {
     static mapStateToProps(state) {
         return {
             searchedImages: state.searchedImages,
-
+            locales: state.locales
         };
     } 
 }

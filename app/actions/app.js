@@ -6,3 +6,10 @@ export function setIsAppWorking (isAppWorking) {
         isAppWorking
     };
 }
+
+export function setLocales(locales) {
+    return {
+        type: types.SET_LOCALES,
+        locales
+    };
+}
