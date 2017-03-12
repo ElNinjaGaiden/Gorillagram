@@ -1,6 +1,6 @@
 # Gorillagram
 
-Gorillagram is a test application/laboratory built by [Gorilla Logic, Inc](https://gorillalogic.com) used to learn and explore the capabilites of React Native implementing *real life* requirements instead of the boring thousands of *TO-DO* examples out there.
+Gorillagram is a test application/laboratory built by [Gorilla Logic, Inc](https://gorillalogic.com) used to learn and explore the capabilites of React Native implementing *real life* requirements instead of doing one more of the thousands of *TO-DO Apps* examples out there.
 
 The goal is to learn React Native *the good way* doing things that could be close to what you will be doing on your first/next React Native project.
 
