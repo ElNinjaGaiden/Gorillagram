@@ -6,6 +6,7 @@ import createLogger from 'redux-logger';
 import { AppRegistry, AsyncStorage, View } from 'react-native';
 import reducer from './app/reducers';
 import NavigationContainer from './app/containers/navigation/NavigationContainer';
+import * as config from './app/config';
 
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
 
@@ -28,7 +29,7 @@ class App extends Component {
 		};
 
 		AsyncStorage.getItem('localeKey').then(localeKey => {
-			const _localeKey = localeKey || 'en-US';
+			const _localeKey = localeKey || config.defaultLocaleKey;
 			const locales = localesConfig.find(l => l.localeKey === localeKey);
 			const store = configureStore({locales});
 			this.setState({store});
