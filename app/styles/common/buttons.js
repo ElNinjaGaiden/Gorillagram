@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const styleButtons = StyleSheet.create({
+export default buttonsStyles = StyleSheet.create({
     iconButton: {
         width: 40,
         height: 40,

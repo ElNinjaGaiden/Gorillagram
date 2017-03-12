@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import {
     View,
-    TouchableOpacity,
     TextInput,
-    Text,
     StyleSheet
 } from 'react-native';
+import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
-import Icon from 'react-native-vector-icons/Ionicons';
 import ActionSheet from 'react-native-actionsheet';
-import Feed from '../../components/feed/feed/Feed';
-import { styleButtons } from '../../styles/common/buttons';
+import mapDispatchToPros from '../reducers/combined';
+import IconButton from '../components/IconButton';
+import Feed from '../components/feed';
+import { menuIcon, searchIcon, addIcon } from '../utils/icons';
+import { viewStyles, toolbarStyles, buttonsStyles } from '../styles';
+import { blackColor } from '../styles/colors';
 
-export default class HomeBase extends Component {
+class Home extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            tag: '',
-            topBarButtonsIconColor: '#000000'
+            tag: ''
         };
     }
 
@@ -53,10 +54,10 @@ export default class HomeBase extends Component {
     }
 
     onAddImageActionSheetPress(index) {
-        const methodName = index == HomeBase.AddImageFromGalleryButtonIndex ? 'launchImageLibrary' : 'launchCamera';
+        const methodName = index == Home.AddImageFromGalleryButtonIndex ? 'launchImageLibrary' : 'launchCamera';
         ImagePicker[methodName]({}, response => {
             if(response.error) {
-                console.log(error);
+                console.log(response.error);
                 return;
             }
             !response.didCancel && response.data && this.onImageDataReturned(response);
@@ -64,37 +65,14 @@ export default class HomeBase extends Component {
     }
 
     onImageDataReturned(imageData) {
-        this.props.navigation.navigate('ImageEditor', { imageData })
-    }
-
-    /**
-     * Virtual
-     */
-    menuIcon() {
-
-    }
-
-    /**
-     * Virtual
-     */
-    searchIcon() {
-
-    }
-
-    /**
-     * Virtual
-     */
-    addImageIcon() {
-
+        this.props.navigation.navigate('ImageEditor', { imageData });
     }
 
     render() {
         return (
-            <View style={styles.container}>
-                <View style={styles.searchSection}>
-                    <TouchableOpacity style={[styleButtons.iconButton, styleButtons.marginRightButton]}>
-                        <Icon name={this.menuIcon()} size={40} color={this.state.topBarButtonsIconColor} />
-                    </TouchableOpacity>
+            <View style={viewStyles.viewContainer}>
+                <View style={toolbarStyles.toolbar}>
+                    <IconButton icon={menuIcon} color={blackColor} />
                     <TextInput style={styles.searchInput}
                         returnKeyType='search'
                         placeholder='Search by tag'
@@ -103,18 +81,14 @@ export default class HomeBase extends Component {
                         onSubmitEditing={this.onSearchImagesPress.bind(this)}
                         underlineColorAndroid='transparent'>
                     </TextInput>
-                    <TouchableOpacity style={styleButtons.iconButton} onPress={this.onSearchImagesPress.bind(this)}>
-                        <Icon name={this.searchIcon()} size={40} color={this.state.topBarButtonsIconColor} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styleButtons.iconButton} onPress={this.onAddImage.bind(this)}>
-                        <Icon name={this.addImageIcon()} size={40} color={this.state.topBarButtonsIconColor} />
-                    </TouchableOpacity>
+                    <IconButton icon={searchIcon} color={blackColor} onPress={this.onSearchImagesPress.bind(this)}/>
+                    <IconButton icon={addIcon} color={blackColor} onPress={this.onAddImage.bind(this)}/>
                 </View>
-                <Feed style={{flex: 1}} />
+                <Feed style={{flex: 1}} navigation={this.props.navigation} />
                 <ActionSheet 
                     ref={(o) => this.addImageActionSheet = o}
-                    options={HomeBase.AddImageOptions}
-                    cancelButtonIndex={HomeBase.AddImageCancelButtonIndex}
+                    options={Home.AddImageOptions}
+                    cancelButtonIndex={Home.AddImageCancelButtonIndex}
                     onPress={this.onAddImageActionSheetPress.bind(this)}
                 />
             </View>
@@ -140,26 +114,11 @@ export default class HomeBase extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#FFF'
-    },
-    searchSection: {
-        height: 50,
-        borderBottomColor: '#000',
-        borderBottomWidth: 1,
-        padding: 5,
-        paddingRight: 0,
-        flexDirection: 'row'
-    },
     searchInput: {
         flex: 1,
         height: 40,
-    },
-    topBarButtonTextWrapper: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
+        marginLeft: 5
     }
 });
+
+export default connect(Home.mapStateToProps, mapDispatchToPros)(Home);

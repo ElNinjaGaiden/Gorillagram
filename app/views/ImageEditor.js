@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { 
-    View, 
-    TouchableOpacity, 
+    View,  
     StyleSheet, 
     Image, 
     TextInput 
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { styleButtons } from '../../styles/common/buttons';
+import { connect } from 'react-redux';
 import MapView from 'react-native-maps';
-import CheckBox from '../../components/fields/CheckBox';
+import mapDispatchToPros from '../reducers/combined';
+import { viewStyles, styleButtons, toolbarStyles, mapStyles } from '../styles';
+import { closeIcon, checkmarkIcon } from '../utils/icons';
+import { blackColor } from '../styles/colors';
+import CheckBox from '../components/CheckBox';
+import IconButton from '../components/IconButton';
 
-const DEFAULT_PADDING = { top: 40, right: 40, bottom: 40, left: 40 };
-
-export default class ImageEditorBase extends Component {
+class ImageEditor extends Component {
 
     constructor(props) {
         super(props);
@@ -33,7 +34,6 @@ export default class ImageEditorBase extends Component {
                     longitude: position.coords.longitude,
                 }
             });
-            //this.fitMap();
         }, (error) => {
             error && console.log(error);
         });
@@ -102,34 +102,20 @@ export default class ImageEditorBase extends Component {
         this.setState({saveLocation: checked});
     }
 
-    fitMap() {
-        this.map.fitToCoordinates([this.state.mapCenter], {
-            edgePadding: DEFAULT_PADDING,
-            animated: true,
-        });
-    }
-
     onMapMarkerDragEnd(e) {
         this.setState({mapCenter: e.nativeEvent.coordinate});
     }
 
     render() {
-        const cancelIcon = this.cancelIcon();
-        const uploadIcon = this.uploadIcon();
-        const iconColor = '#000000';
         const imageUri = `data:image/jpeg;base64,${this.props.imageData}`;
         return (
-            <View style={styles.container}>
-                <View style={styles.topBar}>
+            <View style={viewStyles.viewContainer}>
+                <View style={toolbarStyles.toolbar}>
                     <View style={[styles.topBarSection, styles.topBarSectionStart]}>
-                        <TouchableOpacity onPress={this.onBackPress.bind(this)} style={styleButtons.iconButton}>
-                            <Icon name={cancelIcon} size={40} color={iconColor} />
-                        </TouchableOpacity>
+                        <IconButton icon={closeIcon} color={blackColor} onPress={this.onBackPress.bind(this)} />
                     </View>
                     <View style={[styles.topBarSection, styles.topBarSectionEnd]}>
-                        <TouchableOpacity onPress={this.onUploadImage.bind(this)} style={styleButtons.iconButton}>
-                            <Icon name={uploadIcon} size={40} color={iconColor} />
-                        </TouchableOpacity>
+                        <IconButton icon={checkmarkIcon} color={blackColor} onPress={this.onUploadImage.bind(this)} />
                     </View>
                 </View>
                 <View style={styles.formContainer}>
@@ -154,10 +140,10 @@ export default class ImageEditorBase extends Component {
                 </View>
                 {
                     this.state.mapCenter &&
-                    <View style={styles.mapContainer}>
+                    <View style={[mapStyles.mapContainer, styles.mapContainer]}>
                         <MapView
                             ref={ref => { this.map = ref; }}
-                            style={styles.map}
+                            style={mapStyles.map}
                             initialRegion={{
                             latitude: this.state.mapCenter.latitude,
                             longitude: this.state.mapCenter.longitude,
@@ -183,17 +169,6 @@ export default class ImageEditorBase extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#FFFFFF'
-    },
-    topBar: {
-        height: 50,
-        borderBottomColor: '#000',
-        borderBottomWidth: 1,
-        padding: 5,
-        flexDirection: 'row'
-    },
     topBarSection: {
         flex: 0.5
     },
@@ -224,14 +199,8 @@ const styles = StyleSheet.create({
         width: 85
     },
     mapContainer: {
-        flex: 1,
         marginTop: 20
-    },
-    map: {
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0
     }
 });
+
+export default connect(ImageEditor.mapToStateProps, mapDispatchToPros)(ImageEditor);

@@ -1,0 +1,11 @@
+export const closeIcon = 'ios-close';
+export const menuIcon = 'ios-menu';
+export const searchIcon = 'ios-search';
+export const addIcon = 'ios-add';
+export const locationIcon = 'ios-compass';
+export const commentIcon = 'ios-chatbubbles-outline';
+export const moreIcon = 'ios-more';
+export const imagesIcon = 'ios-images';
+export const checkmarkIcon = 'ios-checkmark';
+export const heartIcon = 'ios-heart';
+export const heartIconOutline = 'ios-heart-outline';

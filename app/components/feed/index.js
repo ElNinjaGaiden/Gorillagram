@@ -5,20 +5,16 @@ import {
     View, 
     Text 
 } from 'react-native';
-import FeedImage from '../image/FeedImage';
+import { connect } from 'react-redux';
+import FeedEntry from './FeedEntry';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { imagesIcon } from '../../utils/icons';
+import { yellowColor } from '../../styles/colors';
 
-export default class FeedBase extends Component {
+class Feed extends Component {
 
     images() {
         return Object.keys(this.props.searchedImages).map(key => this.props.searchedImages[key]);
-    }
-
-    /**
-     * Virtual
-     */
-    noImagesIcon() {
-
     }
 
     render() {
@@ -28,13 +24,13 @@ export default class FeedBase extends Component {
                 <ScrollView>
                     {
                         images.map(image => {
-                            return <FeedImage key={image.public_id} image={image} />;
+                            return <FeedEntry key={image.public_id} image={image} navigation={this.props.navigation} />;
                         })
                     }
                 </ScrollView>
                 :
                 <View style={styles.textContainer}>
-                    <Icon name={this.noImagesIcon()} size={100} color={'#fdf200'} />
+                    <Icon name={imagesIcon} size={100} color={yellowColor} />
                     <Text style={styles.centerText}>No images to display</Text>
                 </View>
         );
@@ -57,3 +53,5 @@ const styles = StyleSheet.create({
         fontSize: 20
     }
 });
+
+export default connect(Feed.mapStateToProps)(Feed);

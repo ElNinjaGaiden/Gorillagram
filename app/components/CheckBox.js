@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { styleButtons } from '../../styles/common/buttons';
+import { View, StyleSheet, Text } from 'react-native';
+import IconButton from './IconButton';
+import { checkmarkIcon } from '../utils/icons';
+import { yellowColor, superLightGray } from '../styles/colors';
 
-export default class CheckBoxBase extends Component {
+export default class CheckBox extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             checked: this.props.checked || true
         }
-    }
-    
-    /**
-     * Virtual
-     */
-    icon() {
-
     }
 
     toggleChecked() {
@@ -30,12 +24,10 @@ export default class CheckBoxBase extends Component {
     }
 
     render() {
-        const iconColor = this.state.checked ? '#fdf200' : '#D3D3D3';;
+        const iconColor = this.state.checked ? yellowColor : superLightGray;
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={this.toggleChecked.bind(this)} style={styleButtons.iconButton}>
-                    <Icon name={this.icon()} size={40} color={iconColor} />
-                </TouchableOpacity>
+                <IconButton onPress={this.toggleChecked.bind(this)} icon={checkmarkIcon} color={iconColor} />
                 {
                     this.props.label &&
                     <View style={styles.labelWrapper}>

@@ -1,6 +1,7 @@
 import { StackNavigator } from 'react-navigation';
-import Home from '../home/Home';
-import ImageEditor from '../image/ImageEditor';
+import Home from '../../views/Home';
+import ImageEditor from '../../views/ImageEditor';
+import MapContainer from '../../views/MapContainer';
 
 const navigatorConfiguration = {
 	headerMode: 'none'
@@ -13,6 +14,10 @@ const AppNavigator = StackNavigator({
 	ImageEditor: {
 		screen: ImageEditor,
 		path: 'imageEditor/:imageData'
+	},
+	MapContainer: {
+		screen: MapContainer,
+		path: 'mapContainer/:markers'
 	}
 }, navigatorConfiguration);
 
