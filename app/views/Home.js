@@ -29,7 +29,6 @@ class Home extends Component {
         AsyncStorage.getItem('localeKey').then(localeKey => {
             if(localeKey) {
                 const locales = localesConfig.find(l => l.localeKey === localeKey);
-                console.log('locales', locales);
                 locales && this.props.setLocales(locales);
             }
         });
