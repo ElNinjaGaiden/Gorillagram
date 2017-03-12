@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import {
     View,
     TextInput,
-    StyleSheet,
-    AsyncStorage
+    StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
@@ -23,15 +22,6 @@ class Home extends Component {
         this.state = {
             tag: ''
         };
-    }
-
-    componentDidMount() {
-        AsyncStorage.getItem('localeKey').then(localeKey => {
-            if(localeKey) {
-                const locales = localesConfig.find(l => l.localeKey === localeKey);
-                locales && this.props.setLocales(locales);
-            }
-        });
     }
 
     onSearchImagesPress() {

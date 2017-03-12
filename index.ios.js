@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import { AppRegistry } from 'react-native';
+import { AppRegistry, AsyncStorage, View } from 'react-native';
 import reducer from './app/reducers';
 import NavigationContainer from './app/containers/navigation/NavigationContainer';
 
@@ -19,12 +19,32 @@ function configureStore(initialState) {
 	return createStore(reducer, initialState, enhancer);
 }
 
-const store = configureStore({});
+class App extends Component {
 
-const App = () => (
-	<Provider store={store}>
-		<NavigationContainer />
-	</Provider>
-)
+	constructor(props) {
+		super(props);
+		this.state = {
+			store: null
+		};
+
+		AsyncStorage.getItem('localeKey').then(localeKey => {
+			const _localeKey = localeKey || 'en-US';
+			const locales = localesConfig.find(l => l.localeKey === localeKey);
+			const store = configureStore({locales});
+			this.setState({store});
+		});
+	}
+
+	render() {
+		return (
+			this.state.store ?
+			<Provider store={this.state.store}>
+				<NavigationContainer />
+			</Provider>
+			:
+			<View />
+		);
+	}
+}
 
 AppRegistry.registerComponent('Gorillagram', () => App);
