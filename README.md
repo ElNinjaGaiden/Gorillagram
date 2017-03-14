@@ -1,6 +1,6 @@
 # Gorillagram
 
-Gorillagram is a test application/laboratory built by [Gorilla Logic, Inc](https://gorillalogic.com) used to learn and explore the capabilites of React Native implementing *real life* requirements instead of doing one more of the thousands of *TO-DO Apps* examples out there.
+Gorillagram is a test application/laboratory used to learn and explore the capabilites of React Native implementing *real life* requirements instead of doing one more of the thousands of (boring) *TO-DO Apps* examples out there.
 
 The goal is to learn React Native *the good way* doing things that could be close to what you will be doing on your first/next React Native project.
 
@@ -25,7 +25,7 @@ We are going to be using [Cloudinary](http://cloudinary.com/) as CDN in order to
 * You are working on a Mac if you want to try the app on both platforms: iOS and Android
 * You have `node` and `npm` installed on your machine
 * You belong to an Apple Developers Team if you want to run the app on a real iOS device
-* You have installed Android SDK Build Tools and you have set a `ANDROID_HOME` environment variable on your machine
+* You have installed Android SDK Build Tools and you have set an `ANDROID_HOME` environment variable on your machine
 * You have the `react-native` CLI installed
 
 ## Install and run
