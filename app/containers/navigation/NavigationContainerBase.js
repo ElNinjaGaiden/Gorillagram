@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { addNavigationHelpers } from 'react-navigation';
+//import { addNavigationHelpers } from 'react-navigation';
 import { View, StyleSheet } from 'react-native';
-import AppNavigator from './AppNavigator';
+//import AppNavigator from './AppNavigator';
 import Spinner from 'react-native-spinkit';
 
 export default class NavigationContainerBase extends Component {
@@ -21,8 +21,11 @@ export default class NavigationContainerBase extends Component {
         };
         return (
             <View style={[styles.container, { marginTop: marginTop }]}>
-                <AppNavigator navigation={addNavigationHelpers(navHelpersConfig)}
-                    ref={(o) => this.appNavigator = o} />
+                <View style={{flex: 1, backgroundColor: 'red'}}>
+                    
+                </View>
+                {/*<AppNavigator navigation={addNavigationHelpers(navHelpersConfig)}
+                    ref={(o) => this.appNavigator = o} />*/}
                 {
                     this.props.isAppWorking && 
                     <View style={styles.spinnerContainer}>
