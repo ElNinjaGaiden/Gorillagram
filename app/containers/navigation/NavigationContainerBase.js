@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-//import { addNavigationHelpers } from 'react-navigation';
 import { View, StyleSheet } from 'react-native';
-//import AppNavigator from './AppNavigator';
 import Spinner from 'react-native-spinkit';
+import Home from '../../views/Home';
 
 export default class NavigationContainerBase extends Component {
 
@@ -15,25 +14,10 @@ export default class NavigationContainerBase extends Component {
 
     render() {
         const marginTop = this.marginTop();
-        const navHelpersConfig = {
-            dispatch: this.props.dispatch,
-            state: this.props.nav
-        };
         return (
             <View style={[styles.container, { marginTop: marginTop }]}>
-                <View style={{flex: 1, backgroundColor: 'red'}}>
-                    
-                </View>
-                {/*<AppNavigator navigation={addNavigationHelpers(navHelpersConfig)}
-                    ref={(o) => this.appNavigator = o} />*/}
                 {
-                    this.props.isAppWorking && 
-                    <View style={styles.spinnerContainer}>
-                        <Spinner style={styles.spinner}
-                                size={100} 
-                                type={'Wave'} 
-                                color={'#fdf200'}/>
-                    </View>   
+                    this.props.locales && <Home {...this.props} />
                 }
             </View>
         );
@@ -41,8 +25,7 @@ export default class NavigationContainerBase extends Component {
 
     static mapToStateProps(state) {
         return {
-            nav: state.nav,
-            isAppWorking: state.isAppWorking
+            locales: state.locales
         }
     }
 }

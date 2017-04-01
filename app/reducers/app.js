@@ -8,7 +8,7 @@ export const isAppWorking = createReducer(false, {
     }
 });
 
-export const locales = createReducer(localesConfig[0], {
+export const locales = createReducer(null, { //localesConfig[0]
     [types.SET_LOCALES](state, action) {
         return action.locales;
     }
