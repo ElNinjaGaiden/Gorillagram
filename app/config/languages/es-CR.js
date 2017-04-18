@@ -1,5 +1,5 @@
 export default es_CR = {
-    localeKey: 'es-CR',
+    languageKey: 'es-CR',
     home: {
         searchByTag: 'Buscar por tag',
         addImageOptions: [
@@ -16,9 +16,11 @@ export default es_CR = {
         captionPlaceholder: 'título (opcional)',
         includeLocation: 'Incluir locación'
     },
-    settingsOptions: [
-        'Inglés',
-        'Español',
-        'Cancelar'
-    ]
+    settings: {
+        languagesOptions: [
+            'Inglés',
+            'Español',
+            'Cancelar'
+        ]
+    }
 }

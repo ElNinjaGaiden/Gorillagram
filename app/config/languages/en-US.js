@@ -1,5 +1,5 @@
 export default en_US = {
-    localeKey: 'en-US',
+    languageKey: 'en-US',
     home: {
         searchByTag: 'Search by tag',
         addImageOptions: [
@@ -16,9 +16,11 @@ export default en_US = {
         captionPlaceholder: 'caption (optional)',
         includeLocation: 'Include location'
     },
-    settingsOptions: [
-        'English',
-        'Spanish',
-        'Cancel'
-    ]
+    settings: {
+        languagesOptions: [
+            'English',
+            'Spanish',
+            'Cancel'
+        ]
+    }
 };

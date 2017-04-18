@@ -6,7 +6,7 @@ import mapDispatchToPros from '../reducers/combined';
 import IconButton from '../components/IconButton';
 import { menuIcon } from '../utils/icons';
 import { blackColor } from '../styles/colors';
-import localesConfig from '../config/locales';
+import languagesConfig from '../config/languages';
 
 class Settings extends Component {
 
@@ -15,8 +15,8 @@ class Settings extends Component {
     }
 
     onSettingsActionSheetPress(index) {
-        const locales = localesConfig[index];
-        locales && this.props.setLocales(locales);
+        const language = languagesConfig[index];
+        language && this.props.setLanguage(language);
     }
 
     render() {
@@ -25,7 +25,7 @@ class Settings extends Component {
                 <IconButton onPress={this.onPress.bind(this)} icon={menuIcon} color={blackColor} />
                 <ActionSheet 
                     ref={(o) => this.settingsActionSheet = o}
-                    options={this.props.locales.settingsOptions}
+                    options={this.props.language.settings.languagesOptions}
                     cancelButtonIndex={Settings.CancelButtonIndex}
                     onPress={this.onSettingsActionSheetPress.bind(this)}
                 />
@@ -37,7 +37,7 @@ class Settings extends Component {
 
     static mapStateToProps(state) {
         return {
-            locales: state.locales
+            language: state.language
         };
     }
 }

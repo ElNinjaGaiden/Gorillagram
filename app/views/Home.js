@@ -55,19 +55,19 @@ class Home extends Component {
     }
 
     onAddImageActionSheetPress(index) {
-        if(index < 2) {
+        if(index !== Home.AddImageCancelButtonIndex) {
             const methodName = (index === Home.AddImageFromGalleryButtonIndex) ? 'launchImageLibrary' : 'launchCamera';
             ImagePicker[methodName]({}, response => {
                 if(response.error) {
                     console.log(response.error);
                     return;
                 }
-                !response.didCancel && response.data && this.onImageDataReturned(response);
+                !response.didCancel && response.data && this.onImageDataResolved(response);
             });
         }
     }
 
-    onImageDataReturned(imageData) {
+    onImageDataResolved(imageData) {
         this.props.navigation.navigate('ImageEditor', { imageData });
     }
 
@@ -78,7 +78,7 @@ class Home extends Component {
                     <Settings />
                     <TextInput style={styles.searchInput}
                         returnKeyType='search'
-                        placeholder={this.props.locales.home.searchByTag}
+                        placeholder={this.props.language.home.searchByTag}
                         autoCapitalize='none'
                         onChangeText={this.onTagSearchChange.bind(this)}
                         onSubmitEditing={this.onSearchImagesPress.bind(this)}
@@ -90,7 +90,7 @@ class Home extends Component {
                 <Feed style={{flex: 1}} navigation={this.props.navigation} />
                 <ActionSheet 
                     ref={(o) => this.addImageActionSheet = o}
-                    options={this.props.locales.home.addImageOptions}
+                    options={this.props.language.home.addImageOptions}
                     cancelButtonIndex={Home.AddImageCancelButtonIndex}
                     onPress={this.onAddImageActionSheetPress.bind(this)}
                 />
@@ -105,7 +105,7 @@ class Home extends Component {
     static mapStateToProps(state) {
         return {
             searchedImages: state.searchedImages,
-            locales: state.locales
+            language: state.language
         };
     } 
 }

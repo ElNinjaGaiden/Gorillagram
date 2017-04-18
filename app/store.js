@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk';
 import reducer from './reducers';
 import * as config from './config';
 import * as appActions from './actions/app';
-import { localeKeyName } from './config';
+import { languageKeyName } from './config';
 
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
 
@@ -24,10 +24,10 @@ const store = configureStore({});
 
 //Load the user prefered language from local storage (or use default language if there is no language pre-selection)
 //Once the language is loaded the store itself dispatch the action to update the language congifuration
-AsyncStorage.getItem(localeKeyName).then(localeKey => {
-    const _localeKey = localeKey || config.defaultLocaleKey;
-    const locales = localesConfig.find(l => l.localeKey === _localeKey);
-    store.dispatch(appActions.setLocales(locales));
+AsyncStorage.getItem(languageKeyName).then(languageKey => {
+	const _languageKey = languageKey || config.defaultLanguageKey;
+	const language = languagesConfig.find(l => l.languageKey === _languageKey);
+	store.dispatch(appActions.setLanguage(language));
 });
 
 export default store;

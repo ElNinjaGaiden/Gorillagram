@@ -13,8 +13,9 @@ const initialNavState = {
 export const nav = createReducer(initialNavState, {
     [types.NAVIGATION_NAVIGATE](state, action) {
         const newState = AppNavigator.router.getStateForAction(action, state);
-        //console.log('navigation', arguments, bla);
-        action.params && (newState.params = action.params);
+        if(action.params) {
+            newState.params = action.params;
+        }
         return newState;
     },
     

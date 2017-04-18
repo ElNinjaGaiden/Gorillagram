@@ -31,7 +31,7 @@ class Feed extends Component {
                 :
                 <View style={styles.textContainer}>
                     <Icon name={imagesIcon} size={100} color={yellowColor} />
-                    <Text style={styles.centerText}>{this.props.locales.feed.noImagesToDisplay}</Text>
+                    <Text style={styles.centerText}>{this.props.language.feed.noImagesToDisplay}</Text>
                 </View>
         );
     }
@@ -39,7 +39,7 @@ class Feed extends Component {
     static mapStateToProps(state) {
         return {
             searchedImages: state.searchedImages,
-            locales: state.locales
+            language: state.language
         };
     }
 }

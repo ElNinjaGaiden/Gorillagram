@@ -21,7 +21,7 @@ export default class NavigationContainerBase extends Component {
         return (
             <View style={[styles.container, { marginTop: this.marginTop() }]}>
                 {
-                    this.props.locales &&
+                    this.props.language &&
                     <AppNavigator navigation={addNavigationHelpers(navHelpersConfig)} ref={(o) => this.appNavigator = o} />
                 }
                 {
@@ -34,7 +34,7 @@ export default class NavigationContainerBase extends Component {
     static mapToStateProps(state) {
         return {
             nav: state.nav,
-            locales: state.locales,
+            language: state.language,
             isAppWorking: state.isAppWorking
         }
     }

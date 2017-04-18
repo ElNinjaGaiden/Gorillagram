@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import * as types from './types';
-import { localeKeyName } from '../config';
+import { languageKeyName } from '../config';
 
 export function setIsAppWorking (isAppWorking) {
     return {
@@ -9,10 +9,10 @@ export function setIsAppWorking (isAppWorking) {
     };
 }
 
-export function setLocales(locales) {
-    AsyncStorage.setItem(localeKeyName, locales.localeKey)
+export function setLanguage(language) {
+    AsyncStorage.setItem(languageKeyName, language.languageKey)
     return {
-        type: types.SET_LOCALES,
-        locales
+        type: types.SET_LANGUAGE,
+        language
     };
 }

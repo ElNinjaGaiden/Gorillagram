@@ -121,19 +121,19 @@ class ImageEditor extends Component {
                 <View style={styles.formContainer}>
                     <View style={styles.formInputs}>
                         <TextInput style={styles.textInput}
-                            placeholder={this.props.locales.imageEditor.tagsPlaceholder}
+                            placeholder={this.props.language.imageEditor.tagsPlaceholder}
                             autoCapitalize='none'
                             onChangeText={this.onTagChange.bind(this)}
                             underlineColorAndroid='transparent'>
                         </TextInput>
                         <TextInput style={styles.textInput}
-                            placeholder={this.props.locales.imageEditor.captionPlaceholder}
+                            placeholder={this.props.language.imageEditor.captionPlaceholder}
                             onChangeText={this.onCaptionChange.bind(this)}
                             onSubmitEditing={this.onUploadImage.bind(this)}
                             underlineColorAndroid='transparent'>
                         </TextInput>
                         <CheckBox checked={this.state.saveLocation} 
-                                label={this.props.locales.imageEditor.includeLocation} 
+                                label={this.props.language.imageEditor.includeLocation} 
                                 onCheckedChange={this.onSaveLocationChanged.bind(this)} />
                     </View>
                     <View style={styles.formThumbnail}>
@@ -166,7 +166,7 @@ class ImageEditor extends Component {
             imageData: state.nav.params.imageData.data,
             imageExtension: state.nav.params.imageData.fileName ? state.nav.params.imageData.fileName.split('.')[1].toLowerCase() : 'jpg',
             currentSearchTag: state.currentSearchTag,
-            locales: state.locales
+            language: state.language
         };
     }
 }
