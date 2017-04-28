@@ -18,7 +18,7 @@ export default class FeedEntry extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			imageWidth: Dimensions.get('window').width
+			imageWidth: Math.ceil(Dimensions.get('window').width)
 		};
 	}
 
